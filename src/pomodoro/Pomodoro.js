@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
 import DurationControl from "./DurationControl";
 import ProgressView from "./ProgressView";
+import PlayControl from "./PlayControl";
 
 // These functions are defined outside of the component to insure they do not have access to state
 // and are, therefore more likely to be pure.
@@ -97,6 +97,7 @@ function Pomodoro() {
     });
   }
 
+  //when the stop button is pressed, it will reset the timer to for the focus duration and break duration to 25 mins and 5 mins respectively
   const handleStop = (click) =>{
     setIsTimerRunning(false);
     setSession(null);
@@ -106,6 +107,8 @@ function Pomodoro() {
 
   return (
     <div className="pomodoro">
+      
+      {/*component which allows the user to set the desired time length for focus duration and break duration */}
       <DurationControl
         session={session}
         focusDuration={focusDuration}
@@ -113,45 +116,16 @@ function Pomodoro() {
         breakDuration={breakDuration}
         setBreakDuration={setBreakDuration}
       />
-     
-      <div className="row">
-        <div className="col">
-          <div
-            className="btn-group btn-group-lg mb-2"
-            role="group"
-            aria-label="Timer controls"
-          >
-            <button
-              type="button"
-              className="btn btn-primary"
-              data-testid="play-pause"
-              title="Start or pause timer"
-              onClick={playPause}
-            >
-              <span
-                className={classNames({
-                  oi: true,
-                  "oi-media-play": !isTimerRunning,
-                  "oi-media-pause": isTimerRunning,
-                })}
-              />
-            </button>
-            {/* TODO: Implement stopping the current focus or break session. and disable the stop button when there is no active session */}
-            {/* TODO: Disable the stop button when there is no active session */}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-testid="stop"
-              title="Stop the session"
-              disabled={!session}
-              onClick={handleStop}
-            >
-              <span className="oi oi-media-stop" />
-            </button>
-          </div>
-        </div>
-      </div>
 
+      {/*component which sets and displays the action buttons*/}
+      <PlayControl
+        playPause={playPause}
+        isTimerRunning={isTimerRunning}
+        session={session}
+        handleStop={handleStop}
+      />
+     
+     {/*component which displays the status/progress of the timer */}
       <ProgressView
         session={session}          
         focusDuration={focusDuration}          

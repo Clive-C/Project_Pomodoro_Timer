@@ -4,6 +4,7 @@ import {minutesToDuration} from "../utils/duration";
 
 const DurationControl = ({session, focusDuration, setFocusDuration, breakDuration, setBreakDuration}) =>{
 
+    //increases the focus duration time by 5 min intervals to a max of 60 mins
     const handleFocusIncrease = (click) =>{
         const newFocusDuration = focusDuration + 300;
         if (newFocusDuration >= 3600){
@@ -14,6 +15,7 @@ const DurationControl = ({session, focusDuration, setFocusDuration, breakDuratio
         }
     }
 
+    //decreases the focus duration time by 5 min intervals to a min of 5 mins
     const handleFocusDecrease = (click) =>{
         const newFocusDuration = focusDuration - 300;
         if (newFocusDuration <= 300){
@@ -24,6 +26,7 @@ const DurationControl = ({session, focusDuration, setFocusDuration, breakDuratio
         }
     }
 
+    //increases the break duration time in 1 min intervals to a max of 15 mins
     const handleBreakIncrease = (click) =>{
         const newBreakDuration = breakDuration + 60;
         if (newBreakDuration >= 900){
@@ -34,6 +37,7 @@ const DurationControl = ({session, focusDuration, setFocusDuration, breakDuratio
         }
     }
     
+    //decreases the break duration time in 1 min interval to a min of 1 min
     const handleBreakDecrease = (click) =>{
         const newBreakDuration = breakDuration - 60;
         if (newBreakDuration <= 60){
@@ -50,7 +54,7 @@ const DurationControl = ({session, focusDuration, setFocusDuration, breakDuratio
                 <div className="col">
                     <div className="input-group input-group-lg mb-2">
                         <span className="input-group-text" data-testid="duration-focus">
-                            Focus Duration: {minutesToDuration(focusDuration/60)}
+                            Focus Duration: {minutesToDuration(focusDuration/60)} {/*using minustesToDuration allows the display of 60 Minute mark*/}
                         </span>
 
                         <div className="input-group-append">
